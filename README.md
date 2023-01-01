@@ -9,3 +9,4 @@
 - [ ] 선납 이연 시 중간에 입금해야하는 날짜를 구하는 기능 - Calculation#getMidDate
 	- [ ] 두 날짜의 날짜 차이를 구하는 기능 - Util#getDateDiff
 	- [ ] 적금 시 수지를 구하는 기능 - Calculation#getInstallmentValue
+- [X] 시작일로 부터 특정 달 이후의 날짜를 구하는 기능 - Util#getAfterMonth
