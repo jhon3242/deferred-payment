@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/jhon3242/deferred-payment/issues"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "mocha": "^10.2.0"
+  }
 }
