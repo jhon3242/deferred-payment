@@ -18,8 +18,17 @@ function getMidPayment(asset, month = 36) {
 function getMidDate(start = new Date(), month = 36) {
 	let endDate = Util.getAfterMonth(start, month);
 	let midDateDiff = getMidValue(month, start); // 마지막 일로부터 며칠 전에 납부해야하는지
-	return Util.getDateBefore(endDate, midDateDiff);
+	console.log("며칠 전 ? " + midDateDiff);
+	return Util.getBeforeDate(endDate, midDateDiff);
 }
+
+// 557
+let startDate = new Date("2026-05-30");
+let endDate = Util.getAfterMonth(startDate, 36);
+let a = Util.getDateDiff(startDate, endDate);
+console.log("" + getInstallmentValue(36, startDate));
+// let before = Util.getBeforeDate(endDate, 365*2 + 1);
+// console.log("" + before);
 
 /**
  * 적금 수지 - 첫 달 6/12 - 마지막 달 5/12
@@ -32,7 +41,7 @@ function getMidValue(month, start) {
 }
 
 /**
- * 적금 시 총 수지
+ * 적금 시 총 수지 (만기누적지수)
  */
 function getInstallmentValue(month = 36, start = new Date()) {
 	let count = -1;
@@ -46,7 +55,6 @@ function getInstallmentValue(month = 36, start = new Date()) {
 	}
 	return result;
 }
-
 
 
 export {getFirstPayment, getMidPayment, getLastPayment, getMidDate, getInstallmentValue}
