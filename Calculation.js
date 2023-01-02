@@ -48,10 +48,13 @@ function getInstallmentValue(month = 36, start = new Date()) {
 	let result = 0;
 	let tmpDate = Util.getCloneDate(start);
 	let endDate = Util.getAfterMonth(start, month);
-
+	let nextDate;
+	let nnextDate;
 	while (++count < month) {
 		result += Util.getDateDiff(tmpDate, endDate);
-		tmpDate = Util.getAfterMonth(tmpDate, 1);
+		nextDate = Util.getAfterMonth(tmpDate, 1);
+		
+		// console.log(`result : ${result}, tmpDate : ${tmpDate}`);
 	}
 	return result;
 }
