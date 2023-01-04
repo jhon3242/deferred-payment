@@ -67,17 +67,17 @@ function handleSpecDate(tmpDate, target) {
 	let newDate = getCloneDate(tmpDate);
 	newDate.setMonth(newDate.getMonth() + 1);
 
-	if (target == 29) {
-		if (tmpDate.getMonth() == 0) { // newDate 가 2월인 경우
+	if (target === 29) {
+		if (tmpDate.getMonth() === 0) { // newDate 가 2월이여야 하는 경우
 			newDate.setDate(0);
 		}
-	} else if (target == 30) {
-		if (tmpDate.getDate() < 30) { // tmpDate 가 2월인 경우
+	} else if (target === 30) {
+		if (tmpDate.getMonth() === 0) { // newDate 가 2월이여야 하는 경우
+			newDate.setDate(0);
+		} else if (tmpDate.getMonth() === 1) { // tmpDate 가 2월인 경우
 			newDate.setDate(30);
-		} else { // tmpDate 가 31일인 경우
-			newDate.setDate(0); 
-		} 
-	} else if (target == 31) {
+		}
+	} else if (target === 31) {
 		if (tmpDate.getDate() <= 30) { // tmpDate 가 28or29or30인 경우 
 			newDate.setDate(31);
 		} else { // tmpDate 가 31일인 경우

@@ -38,6 +38,12 @@ function getMidDate(start = new Date(), month = 36) {
  */
 function getMidValue(month, start) {
 	let year = month / 12;
+	let value = getInstallmentValue(month, start);
+	let a = - 6 * year * Util.getDateDiff(start, Util.getAfterMonth(start, month));
+	let b = - 5 * year * 1;
+	console.log("value " + value);
+	console.log("a " + a);
+	console.log("b " + b);
 	return getInstallmentValue(month, start) 
 	- 6 * year * Util.getDateDiff(start, Util.getAfterMonth(start, month)) 
 	- 5 * year * 1;
@@ -55,12 +61,14 @@ function getInstallmentValue(month = 36, start = new Date()) {
 	
 	while (++count < month) {
 		result += Util.getDateDiff(tmpDate, endDate);
+		// console.log("dif " + Util.getDateDiff(tmpDate, endDate));
+		// console.log(`result : ${result}, tmpDate : ${tmpDate}`);
 		if (target > 28) {
 			tmpDate = Util.handleSpecDate(tmpDate, target);
 		} else {
 			tmpDate = Util.getAfterMonth(tmpDate, 1);
 		}
-		// console.log(`result : ${result}, tmpDate : ${tmpDate}`);
+		
 	}
 	
 	return result;

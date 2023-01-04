@@ -9,7 +9,6 @@ describe("일수 차이 함수 (getDateDiff) 테스트", function() {
 			assert.equal(result, testCase.expect);
 		})
 	}
-
 	let cases = {
 		case1 : {start : "2022-01-01", end : "2022-01-31", expect : 30},
 		case2 : {start : "2022-01-01", end : "2023-01-01", expect : 365},
@@ -18,11 +17,11 @@ describe("일수 차이 함수 (getDateDiff) 테스트", function() {
 		case5 : {start : "2023-01-01", end : "2026-01-01", expect : 1096},
 		case6 : {start : "2026-05-30", end : "2029-05-30", expect : 1096},
 	}
-
 	for (let testCase in cases) {
 		makeTest(cases[testCase]);
 	}
 })
+
 
 describe("n달 뒤 구하는 함수 (getAfterMonth) 테스트", function() {
 	function makeTest(testCase) {
@@ -31,7 +30,6 @@ describe("n달 뒤 구하는 함수 (getAfterMonth) 테스트", function() {
 			assert.equal(Util.getDateStr(result), testCase.expect);
 		})
 	}
-	
 	let cases = {
 		case1 : {start : "2022-01-31", target : 1, expect : "2022-02-28"},
 		case2 : {start : "2023-02-28", target : 1, expect : "2023-03-28"},
@@ -55,7 +53,6 @@ describe("가까운 날 구하는 (handleSpecDate) 테스트", function() {
 			assert.equal(Util.getDateStr(result), testCase.expect);
 		})
 	}
-	
 	let cases = {
 		case1 : {start : "2022-01-31", target : 31, expect : "2022-02-28"},
 		case2 : {start : "2023-02-28", target : 30, expect : "2023-03-30"},
@@ -63,8 +60,8 @@ describe("가까운 날 구하는 (handleSpecDate) 테스트", function() {
 		case4 : {start : "2024-01-31", target : 31, expect : "2024-02-29"},
 		case5 : {start : "2024-02-29", target : 31, expect : "2024-03-31"},
 		case6 : {start : "2024-02-29", target : 30, expect : "2024-03-30"},
+		case6 : {start : "2026-05-30", target : 30, expect : "2026-06-30"},
 	}
-
 	for (let testCase in cases) {
 		makeTest(cases[testCase]);
 	}
@@ -81,13 +78,11 @@ describe("만기누적지수 (getInstallmentValue) 테스트", function() {
 			assert.equal(result, testCase.expect);
 		})
 	}
-
 	let cases = {
 		case1 : {start : "2022-01-01", month : 12, expect : 2382},
 		case2 : {start : "2023-01-01", month : 36, expect : 20300},
 		case3 : {start : "2026-05-30", month : 36, expect : 20248},
 	}
-
 	for (let testCase in cases) {
 		makeTest(cases[testCase]);
 	}
