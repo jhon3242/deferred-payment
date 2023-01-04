@@ -1,11 +1,20 @@
+function isNotSameDate(date1, date2) {
+	return !(date1.getFullYear() == date2.getFullYear() && 
+			date1.getMonth() == date2.getMonth() &&
+			date1.getDate() == date2.getDate())
+			
+}
+
 
 function getDateDiff(date1, date2) {
 	let start = getCloneDate(date1);
 	let end = getCloneDate(date2);
 	setDefaultTime(start);
 	setDefaultTime(date2);
+	// console.log("" + start);
+	// console.log("" + date2);
 	let result = 0;
-	while (start.getTime() != end.getTime()) {
+	while (isNotSameDate(start, end)) {
 		start.setDate(start.getDate() + 1);
 		result++;
 		setDefaultTime(start);
@@ -18,6 +27,7 @@ function getDateDiff(date1, date2) {
 
 
 function getTwoLengthNumStr(num) {
+	num = "" + num;
 	if (num.length == 1) {
 		return "0" + num;
 	} else {
@@ -30,6 +40,7 @@ function getDateStr(date) {
 			getTwoLengthNumStr(date.getMonth() + 1) + "-" + 
 			getTwoLengthNumStr(date.getDate());
 }
+
 
 function getCloneDate(date) {
 	return new Date(getDateStr(date));
@@ -49,6 +60,33 @@ function getAfterMonth(date, month) {
 	return newDate;
 }
 
+/**
+ * 1-31 -> 2-28 - 3-28 로 바뀌여서 이를 해결하기 위한 메서드
+ */
+function handleSpecDate(tmpDate, target) {
+	let newDate = getCloneDate(tmpDate);
+	newDate.setMonth(newDate.getMonth() + 1);
+
+	if (target == 29) {
+		if (tmpDate.getMonth() == 0) { // newDate 가 2월인 경우
+			newDate.setDate(0);
+		}
+	} else if (target == 30) {
+		if (tmpDate.getDate() < 30) { // tmpDate 가 2월인 경우
+			newDate.setDate(30);
+		} else { // tmpDate 가 31일인 경우
+			newDate.setDate(0); 
+		} 
+	} else if (target == 31) {
+		if (tmpDate.getDate() <= 30) { // tmpDate 가 28or29or30인 경우 
+			newDate.setDate(31);
+		} else { // tmpDate 가 31일인 경우
+			newDate.setDate(0); 
+		}
+	}
+	return newDate;
+}
+
 function setDefaultTime(date) {
 	date.setHours(0);
 	date.setMinutes(0);
@@ -64,4 +102,4 @@ function getBeforeDate(target, date) {
 }
 
 
-export {getDateDiff, getDateStr, getCloneDate, getAfterMonth, setDefaultTime, getBeforeDate}
+export {getDateDiff, getDateStr, getCloneDate, getAfterMonth, setDefaultTime, getBeforeDate, handleSpecDate}
