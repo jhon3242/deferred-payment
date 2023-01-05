@@ -16,6 +16,9 @@ describe("일수 차이 함수 (getDateDiff) 테스트", function() {
 		case4 : {start : "2022-01-01", end : "2028-01-01", expect : 2191},
 		case5 : {start : "2023-01-01", end : "2026-01-01", expect : 1096},
 		case6 : {start : "2026-05-30", end : "2029-05-30", expect : 1096},
+		case7 : {start : "2027-11-30", end : "2028-01-08", expect : 39},
+		case8 : {start : "2027-12-30", end : "2029-05-29", expect : 516},
+		case9 : {start : "2026-05-30", end : "2027-04-30", expect : 335},
 	}
 	for (let testCase in cases) {
 		makeTest(cases[testCase]);
