@@ -63,26 +63,5 @@ function getTotalDiff(info) {
 	return info.reduce((acc, now) => now["diff"] + acc, 0);
 }
 
-/**
- * 적금 시 총 수지 (만기누적지수)
- */
-// function getInstallmentValue(month = 36, start = new Date()) {
-// 	let count = -1;
-// 	let result = 0;
-// 	let tmpDate = Util.getCloneDate(start);
-// 	let endDate = Util.getAfterMonth(start, month);
-// 	let target = start.getDate();
-// 	while (++count < month) {
-// 		result += Util.getDateDiff(tmpDate, endDate);
-// 		if (target > 28) {
-// 			tmpDate = Util.handleSpecDate(tmpDate, target);
-// 		} else {
-// 			tmpDate = Util.getAfterMonth(tmpDate, 1);
-// 		}
-// 	}
-	
-// 	return result;
-// }
-
 
 export {getFirstPayment, getMidPayment, getLastPayment, getMidDate, getLastDate}
