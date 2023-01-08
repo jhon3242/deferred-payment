@@ -16,6 +16,9 @@ describe("n달 뒤 구하는 함수 (getAfterMonth) 테스트", function() {
 		case4 : {start : "2024-01-31", target : 31, month : 1, expect : "2024-02-29"},
 		case5 : {start : "2024-02-29", target : 29, month : 6, expect : "2024-08-29"},
 		case6 : {start : "2024-01-31", target : 31, month : 36, expect : "2027-01-31"},
+		case7 : {start : "2024-01-29", target : 29, month : 1, expect : "2024-02-29"},
+		case8 : {start : "2024-07-31", target : 31, month : 1, expect : "2024-08-31"},
+		case9 : {start : "2024-12-31", target : 31, month : 1, expect : "2025-01-31"},
 	}
 
 	Object.values(cases).forEach(makeTest);

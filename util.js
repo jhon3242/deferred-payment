@@ -1,3 +1,5 @@
+import * as Const from "./Constant.js";
+
 function isNotSameDate(date1, date2) {
 	return !(date1.getFullYear() == date2.getFullYear() && 
 			date1.getMonth() == date2.getMonth() &&
@@ -59,25 +61,49 @@ function getDateAfter(target, date) {
 //  * 1-31 -> 2-28 - 3-28 로 바뀌여서 이를 해결하기 위한 메서드
 //  */
 function getAfterOneMonth(tmpDate, target) {
+	if (target === 29) {
+		return handle29(tmpDate);
+	} else if (target === 30) {
+		return handle30(tmpDate);
+	} else if (target === 31) {
+		return handle31(tmpDate);
+	}
 	let newDate = getCloneDate(tmpDate);
 	newDate.setMonth(newDate.getMonth() + 1);
+	return newDate;
+}
 
-	if (target === 29) {
-		if (tmpDate.getMonth() === 0) { // newDate 가 2월이여야 하는 경우
+function handle29(tmpDate) {
+	let newDate = getCloneDate(tmpDate);
+	newDate.setMonth(newDate.getMonth() + 1);
+	if (tmpDate.getMonth() === Const.JAN) {
+		if (newDate.getDate() !== tmpDate.getDate()) { // 이월이 발생한 경우
 			newDate.setDate(0);
 		}
-	} else if (target === 30) {
-		if (tmpDate.getMonth() === 0) { // newDate 가 2월이여야 하는 경우
-			newDate.setDate(0);
-		} else if (tmpDate.getMonth() === 1) { // tmpDate 가 2월인 경우
-			newDate.setDate(30);
-		}
-	} else if (target === 31) {
-		if (tmpDate.getDate() <= 30 || tmpDate.getMonth() == 6 || tmpDate.getMonth() == 11) { // tmpDate 가 28or29or30인 경우 or 7월 , 12인 경우
-			newDate.setDate(31);
-		}else { // tmpDate 가 31일인 경우
-			newDate.setDate(0); 
-		}
+	}
+	return newDate;
+}
+
+function handle30(tmpDate) {
+	let newDate = getCloneDate(tmpDate);
+	newDate.setMonth(newDate.getMonth() + 1);
+	if (tmpDate.getMonth() === Const.JAN) {
+		newDate.setDate(0);
+	}
+	if (tmpDate.getMonth() == Const.FEB) {
+		newDate.setDate(30);
+	}
+	return newDate;
+}
+
+function handle31(tmpDate) {
+	let newDate = getCloneDate(tmpDate);
+	newDate.setMonth(newDate.getMonth() + 1);
+	if (tmpDate.getDate() <= 30 || tmpDate.getMonth() == Const.JUL 
+		|| tmpDate.getMonth() == Const.DEC) { // tmpDate 가 28or29or30인 경우 or 7월 , 12인 경우
+		newDate.setDate(31);
+	}else { // tmpDate 가 31일인 경우
+		newDate.setDate(0); 
 	}
 	return newDate;
 }
