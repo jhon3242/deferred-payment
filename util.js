@@ -73,9 +73,9 @@ function getAfterOneMonth(tmpDate, target) {
 			newDate.setDate(30);
 		}
 	} else if (target === 31) {
-		if (tmpDate.getDate() <= 30) { // tmpDate 가 28or29or30인 경우 
+		if (tmpDate.getDate() <= 30 || tmpDate.getMonth() == 6 || tmpDate.getMonth() == 11) { // tmpDate 가 28or29or30인 경우 or 7월 , 12인 경우
 			newDate.setDate(31);
-		} else { // tmpDate 가 31일인 경우
+		}else { // tmpDate 가 31일인 경우
 			newDate.setDate(0); 
 		}
 	}
