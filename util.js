@@ -1,17 +1,19 @@
 import * as Const from "./Constant.js";
 
 function isNotSameDate(date1, date2) {
-	return !(date1.getFullYear() == date2.getFullYear() && 
-			date1.getMonth() == date2.getMonth() &&
-			date1.getDate() == date2.getDate())
+	let dateA = new Date(date1);
+	let dateB = new Date(date2);
+	return !(dateA.getFullYear() == dateB.getFullYear() && 
+			dateA.getMonth() == dateB.getMonth() &&
+			dateA.getDate() == dateB.getDate())
 }
 
 
 function getDateDiff(date1, date2) {
-	let start = getCloneDate(date1);
-	let end = getCloneDate(date2);
+	let start = new Date(date1);
+	let end = new Date(date2);
 	setDefaultTime(start);
-	setDefaultTime(date2);
+	setDefaultTime(end);
 	let result = 0;
 	if (start <= end) {
 		while (isNotSameDate(start, end)) {
@@ -46,12 +48,9 @@ function getDateStr(date) {
 }
 
 
-function getCloneDate(date) {
-	return new Date(getDateStr(date));
-}
 
 function getDateAfter(target, date) {
-	let result = getCloneDate(target);
+	let result = new Date(target);
 	result.setDate(result.getDate() + date);
 	result.setHours(0);
 	return result;
@@ -68,13 +67,13 @@ function getAfterOneMonth(tmpDate, target) {
 	} else if (target === 31) {
 		return handle31(tmpDate);
 	}
-	let newDate = getCloneDate(tmpDate);
+	let newDate = new Date(tmpDate);
 	newDate.setMonth(newDate.getMonth() + 1);
 	return newDate;
 }
 
 function handle29(tmpDate) {
-	let newDate = getCloneDate(tmpDate);
+	let newDate = new Date(tmpDate);
 	newDate.setMonth(newDate.getMonth() + 1);
 	if (tmpDate.getMonth() === Const.JAN) {
 		if (newDate.getDate() !== tmpDate.getDate()) { // 이월이 발생한 경우
@@ -85,7 +84,7 @@ function handle29(tmpDate) {
 }
 
 function handle30(tmpDate) {
-	let newDate = getCloneDate(tmpDate);
+	let newDate = new Date(tmpDate);
 	newDate.setMonth(newDate.getMonth() + 1);
 	if (tmpDate.getMonth() === Const.JAN) {
 		newDate.setDate(0);
@@ -97,7 +96,7 @@ function handle30(tmpDate) {
 }
 
 function handle31(tmpDate) {
-	let newDate = getCloneDate(tmpDate);
+	let newDate = new Date(tmpDate);
 	newDate.setMonth(newDate.getMonth() + 1);
 	if (tmpDate.getDate() <= 30 || tmpDate.getMonth() == Const.JUL 
 		|| tmpDate.getMonth() == Const.DEC) { // tmpDate 가 28or29or30인 경우 or 7월 , 12인 경우
@@ -126,4 +125,4 @@ function getLastPayDate(start, month) {
 	return getDateAfter(getAfterMonth(start, start.getDate(), month), -1);
 }
 
-export {getCloneDate, getDateStr, getAfterMonth, setDefaultTime, getDateDiff, getDateAfter, getLastPayDate}
+export {getDateStr, getAfterMonth, setDefaultTime, getDateDiff, getDateAfter, getLastPayDate}

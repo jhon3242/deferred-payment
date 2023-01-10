@@ -15,13 +15,16 @@ function getMidPayment(asset, month = 36) {
 
 
 function calculate(start, month) {
-	let midPayIndex = month * Const.FIRST_RATIO;
-	let info = getPayInfo(start, month);
-	let totalDiff = getTotalDiff(info);
-	let midDateInfo = info[midPayIndex];
+	let infos = getPayInfos(start, month);
+	initMidDateInfo(infos);
+	return infos;
+}
+
+function initMidDateInfo(infos) {
+	let midDateInfo = infos.find(info => info["diff"] === undefined);
+	let totalDiff = getTotalDiff(infos);
 	midDateInfo["diff"] = -totalDiff;
-	midDateInfo["deferredPayDate"] = Util.getDateStr(Util.getDateAfter(new Date(midDateInfo["normalPayDate"]), -totalDiff));
-	return info;
+	midDateInfo["deferredPayDate"] = Util.getDateStr(Util.getDateAfter(midDateInfo["normalPayDate"], -totalDiff));
 }
 
 /**
@@ -43,32 +46,28 @@ function getLastDate(info) {
 }
 
 
-function getPayInfo(start, month) {
-	let tmpDate = Util.getCloneDate(start);
-	let lastPayDate = Util.getLastPayDate(start, month);
-	let info = [];
-	let i = 0;
+function getPayInfos(start, month) {
+	let tmpDate = new Date (start);
+	let infos = [];
 	for (let i = 0; i < month; i++) {
-		let tmp = {"normalPayDate" : null, "deferredPayDate" : null, "diff" : null};
+		let tmp = {"normalPayDate" : undefined, "deferredPayDate" : undefined, "diff" : undefined};
 		tmp["normalPayDate"] = Util.getDateStr(tmpDate);
 		if (i < month * Const.FIRST_RATIO) {
 			tmp["deferredPayDate"] = Util.getDateStr(start);
 			tmp["diff"] = Util.getDateDiff(new Date(tmp["normalPayDate"]), new Date(tmp["deferredPayDate"]));
-		} else if (i === month * Const.FIRST_RATIO) {
-			tmp["deferredPayDate"] = undefined;
-		} else {
-			tmp["deferredPayDate"] = Util.getDateStr(lastPayDate);
+		} else if (i !== month * Const.FIRST_RATIO) {
+			tmp["deferredPayDate"] = Util.getDateStr(Util.getLastPayDate(start, month));
 			tmp["diff"] = Util.getDateDiff(new Date(tmp["normalPayDate"]), new Date(tmp["deferredPayDate"]));
 		}
-		info.push(tmp);
+		infos.push(tmp);
 		tmpDate = Util.getAfterMonth(tmpDate, start.getDate());
 	}
-	return info;
+	return infos;
 }
 
 
 function getTotalDiff(info) {
-	return info.reduce((acc, now) => now["diff"] + acc, 0);
+	return info.reduce((acc, now) => (now["diff"] ?? 0) + acc, 0);
 }
 
 

@@ -8,7 +8,7 @@ import * as Util from "./Util.js"
 const ASSET = 44992000 + 40256000; // 85248000
 const MONTH = 36;
 // const START_DATE = new Date(document.getElementById("date"));
-const START_DATE = new Date("2026-05-06");
+const START_DATE = new Date("2023-01-10");
 const print = console.log;
 
 Util.setDefaultTime(START_DATE);
