@@ -121,8 +121,10 @@ function setDefaultTime(date) {
 	date.setSeconds(0);
 }
 
-function getLastPayDate(start, month) {
+function getLastPayDate(startDate, month) {
+	let start = new Date(startDate);
 	return getDateAfter(getAfterMonth(start, start.getDate(), month), -1);
 }
+
 
 export {getDateStr, getAfterMonth, setDefaultTime, getDateDiff, getDateAfter, getLastPayDate}

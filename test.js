@@ -1,5 +1,6 @@
 import * as Cal from "./Calculation.js";
-import * as Util from "./Util.js"
+import * as Util from "./Util.js";
+import {makeUser} from "./User.js";
 import assert from "assert";
 
 describe("n달 뒤 구하는 함수 (getAfterMonth) 테스트", function() {
@@ -28,8 +29,10 @@ describe("n달 뒤 구하는 함수 (getAfterMonth) 테스트", function() {
 describe("기능 테스트", function() {
 	function makeTest(testCase) {
 		it (`시작일 ${testCase.start} , ${testCase.month} 달 적금 시 중간날`, function() {
-			let info = Cal.calculate(new Date(testCase.start), testCase.month);
-			assert.equal(Cal.getMidDate(info, testCase.month), testCase.expect);
+			let user = makeUser(0, testCase.start, testCase.month);
+			Cal.initUser(user);
+			Cal.calculate(user);
+			assert.equal(user.mid["deferredPayDate"], testCase.expect);
 		})
 	}
 	
