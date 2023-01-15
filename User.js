@@ -1,9 +1,16 @@
-function makeUser(asset, startDate, month) {
-	return {
-		asset,
-		startDate,
-		month,
-	};
+
+
+function userMaker() {
+	let count = 0;
+
+	return function(asset, startDate, month) {
+		console.log(`총 유저 수 ${count++}`);
+		return {
+			asset,
+			startDate,
+			month,
+		};
+	}
 }
 
-export {makeUser};
+export {userMaker};
