@@ -3,7 +3,7 @@
 
 
 import * as Cal from "./Calculation.js"
-import {init} from "./User.js";
+import {init} from "../domain/User.js";
 
 const ASSET = 44992000 + 40256000; // 85248000
 const MONTH = 36;

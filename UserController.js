@@ -1,3 +1,5 @@
+import * as InputView from "./view/InputView";
+import {User} from "./domain/User"
 
 function init() {
 	let reposiotry = new Map();
@@ -17,4 +19,9 @@ function init() {
 	return makeUser;
 }
 
-export {init};
+function makeAccount() {
+	let user = new User(InputView.inputName(),
+		InputView.inputPassword(),
+		InputView.inputEmail()
+	)
+}
