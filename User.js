@@ -1,16 +1,20 @@
 
+function init() {
+	let reposiotry = new Map();
+	let id = 0;
 
-function userMaker() {
-	let count = 0;
-
-	return function(asset, startDate, month) {
-		console.log(`총 유저 수 ${count++}`);
-		return {
-			asset,
-			startDate,
-			month,
-		};
+	function makeUser(asset, startDate, month) {
+		if (makeUser.length == 3) {
+			let obj = {asset, startDate, month};
+			reposiotry.set(id++, obj);
+			return obj;
+		} else {
+			throw new Error("Invalid format");
+		}
+		
 	}
+
+	return makeUser;
 }
 
-export {userMaker};
+export {init};
