@@ -1,43 +1,21 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-</head>
-
-<body>
-	<script type="module" src="Calculation.js"></script>
-	<script type="module" src="Util.js"></script>
-	<script type="module" src="Main.js"></script>
-	<label for="date">시작 날짜를 선택하세요 :
-		<input type="date"
-			   id="date"
-			   max="2077-06-20"
-			   min="2000-01-01"
-			   value="2023-01-01">
-	</label><br>
-	<label for="date">시작 자본을 입력하세요 :
-		<input type="text" id="price" onkeyup="inputNumberFormat(this)"/>
-	</label><br>
-	<label for="date">적금 달 수를 입력하세요 :
-		<input type="text" id="month">
-	</label><br>
-	<input type="button" id="btn1" value="확인", onclick="run()">
-	<script>
-		function inputNumberFormat(obj) {
-			obj.value = comma(uncomma(obj.value));
-		}
-
-		function comma(str) {
-			str = String(str);
-			return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
-		}
-
-		function uncomma(str) {
-			str = String(str);
-			return str.replace(/[^\d]+/g, '');
-		}
-	</script>
-	
-</body>
-
+	<head>
+		<link rel="stylesheet" href="./index.css">
+	</head>
+	<body>
+		<script type="module" src="UserController.js"></script>
+		<div class="login-wrapper">
+			<h2>Login</h2>
+			<form method="post" action="서버의url" id="login-form">
+				<input id="USER_NAME" type="text" name="userName" placeholder="Username">
+				<input id="USER_PASS" type="password" name="userPassword" placeholder="Password">
+				<label for="remember-check">
+					<input type="checkbox" id="remember-check">아이디 저장하기
+				</label>
+				<input id="LOGIN" type="submit" value="Login">
+				<input type="submit" value="Make account">
+			</form>
+		</div>
+	</body>
 </html>
